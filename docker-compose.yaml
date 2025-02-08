@@ -1,12 +1,39 @@
 version: '3'
+
 services:
+  traefik:
+    image: traefik:v2.10
+    command:
+      - "--api.insecure=false"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - traefik-public
+    container_name: traefik
+    restart: always
+
   openwebui:
     image: ghcr.io/open-webui/open-webui:main
-    ports:
-      - "3000:8080"
     volumes:
       - open-webui:/app/backend/data
     container_name: open-webui
+    restart: always
+    depends_on:
+      - pipelines
+    networks:
+      - traefik-public
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.openwebui.rule=PathPrefix(`/`)"
+      - "traefik.http.services.openwebui.loadbalancer.server.port=8080"
+
   pipelines:
     image: ghcr.io/open-webui/pipelines:main
     ports:
@@ -17,6 +44,13 @@ services:
       - "host.docker.internal:host-gateway"
     container_name: pipelines
     restart: always
+    networks:
+      - traefik-public
+
+networks:
+  traefik-public:
+    name: traefik-public
+
 volumes:
   open-webui:
   pipelines:
