@@ -1,0 +1,22 @@
+version: '3'
+services:
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:main
+    ports:
+      - "3000:8080"
+    volumes:
+      - open-webui:/app/backend/data
+    container_name: open-webui
+  pipelines:
+    image: ghcr.io/open-webui/pipelines:main
+    ports:
+      - "9099:9099"
+    volumes:
+      - pipelines:/app/pipelines
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: pipelines
+    restart: always
+volumes:
+  open-webui:
+  pipelines:
