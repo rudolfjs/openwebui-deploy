@@ -25,6 +25,7 @@ services:
     image: ghcr.io/open-webui/open-webui:main
     volumes:
       - open-webui:/app/backend/data
+
     container_name: openwebui
     restart: always
     depends_on:
@@ -41,7 +42,6 @@ services:
       - "traefik.http.services.openwebui.loadbalancer.server.port=8080"
       - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
       - "traefik.http.routers.openwebui.middlewares=sslheader"
-
   pipelines:
     image: ghcr.io/open-webui/pipelines:main
     # Remove direct port mapping:
