@@ -18,13 +18,17 @@ Please see installation instructions [here](https://docs.docker.com/engine/insta
 
 # Deployment
 
-To deploy the Open WebUI service and the `pipeline` service:
+1. Clone this repository to your local workstation.
+
+2. Review the `docker-compose.yaml` file, default traefik will use port 80. 
+
+3. To deploy the Open WebUI service and the `pipeline`service:
 
 ```bash
 docker compose up -d
 ```
 
-Once completed, you can access the web service on `localhost:3000`
+Once completed, you can access the web service on `localhost/`
 
 # Configuration
 
