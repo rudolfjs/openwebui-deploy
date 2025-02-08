@@ -4,12 +4,16 @@ services:
   traefik:
     image: traefik:v2.10
     command:
-      - "--api.insecure=false"
+      - "--api.insecure=true"
+      - "--api.dashboard=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.transport.lifecycle.gracetimeout=30s"
+      - "--ping=true"
     ports:
       - "80:80"
+      - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
@@ -21,7 +25,7 @@ services:
     image: ghcr.io/open-webui/open-webui:main
     volumes:
       - open-webui:/app/backend/data
-    container_name: open-webui
+    container_name: openwebui
     restart: always
     depends_on:
       - pipelines
@@ -29,15 +33,20 @@ services:
       - traefik-public
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    environment:
+      - PIPELINE_URL=http://pipelines:9099
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.openwebui.rule=PathPrefix(`/`)"
       - "traefik.http.services.openwebui.loadbalancer.server.port=8080"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.openwebui.middlewares=sslheader"
 
   pipelines:
     image: ghcr.io/open-webui/pipelines:main
-    ports:
-      - "9099:9099"
+    # Remove direct port mapping:
+    # ports:
+    #   - "9099:9099"
     volumes:
       - pipelines:/app/pipelines
     extra_hosts:
@@ -46,6 +55,14 @@ services:
     restart: always
     networks:
       - traefik-public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pipelines.rule=PathPrefix(`/pipelines`)"
+      - "traefik.http.services.pipelines.loadbalancer.server.port=9099"
+      - "traefik.http.middlewares.nobuffer.buffering.disable=true"
+      - "traefik.http.routers.pipelines.middlewares=nobuffer"
+      - "traefik.http.middlewares.strip-pipelines.stripprefix.prefixes=/pipelines"
+      - "traefik.http.routers.pipelines.middlewares=strip-pipelines,nobuffer"
 
 networks:
   traefik-public:
@@ -54,3 +71,4 @@ networks:
 volumes:
   open-webui:
   pipelines:
+
