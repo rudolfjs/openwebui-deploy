@@ -2,7 +2,7 @@
 
 # Open WebUI Deployment
 
-[![License](https://img.shields.io/github/license/rudolfj/openwebui-deploy?label=license&style=for-the-badge)](LICENSE)
+[![License](https://img.shields.io/github/license/rudolfjs/openwebui-deploy?label=license&style=for-the-badge)](LICENSE)
 [![Docker](https://img.shields.io/badge/docker-257bd6?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/)
 
 </div>
