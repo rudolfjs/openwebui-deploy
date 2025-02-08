@@ -36,7 +36,12 @@ Once completed, you can access the web service on `localhost:3000`
 3. Check connectivity
 
 
+## Issues with Service
 
+This is unrelated to the `docker-compose` deployment, but an issue with the services.
+
+1. API key seems to corrupt when service goes offline.
+    * Current workaround is to re-import the keys.
 
 
 
