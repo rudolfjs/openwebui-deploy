@@ -7,6 +7,8 @@ services:
     volumes:
       - open-webui:/app/backend/data
     container_name: open-webui
+    environment:
+     - PIPELINE_URL=http://host.docker.internal:9099
   pipelines:
     image: ghcr.io/open-webui/pipelines:main
     ports:
