@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   traefik:
     image: traefik:v2.10
@@ -22,7 +20,7 @@ services:
     restart: always
 
   openwebui:
-    image: ghcr.io/open-webui/open-webui:main
+    image: ghcr.io/open-webui/open-webui:git-f20b7c2
     volumes:
       - open-webui:/app/backend/data
 

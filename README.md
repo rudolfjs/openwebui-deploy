@@ -28,7 +28,7 @@ Please see installation instructions [here](https://docs.docker.com/engine/insta
 docker compose up -d
 ```
 
-Once completed, you can access the web service on `localhost/`
+Once completed, you can access the web service on `localhost/chat`
 
 # Configuration
 
