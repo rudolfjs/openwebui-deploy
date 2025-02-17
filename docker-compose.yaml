@@ -20,7 +20,7 @@ services:
     restart: always
 
   openwebui:
-    image: ghcr.io/open-webui/open-webui:git-f20b7c2
+    image: ghcr.io/open-webui/open-webui:git-3b856b6
     volumes:
       - open-webui:/app/backend/data
 
@@ -41,7 +41,7 @@ services:
       - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
       - "traefik.http.routers.openwebui.middlewares=sslheader"
   pipelines:
-    image: ghcr.io/open-webui/pipelines:main
+    image: ghcr.io/open-webui/pipelines:git-ab9012c
     # Remove direct port mapping:
     # ports:
     #   - "9099:9099"
