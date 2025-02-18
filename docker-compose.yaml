@@ -20,7 +20,7 @@ services:
     restart: always
 
   openwebui:
-    image: ghcr.io/open-webui/open-webui:git-3b856b6
+    image: ghcr.io/open-webui/open-webui:git-3f3a5bb
     volumes:
       - open-webui:/app/backend/data
 
