@@ -20,12 +20,17 @@ Please see installation instructions [here](https://docs.docker.com/engine/insta
 
 1. Clone this repository to your local workstation.
 
-2. Review the `docker-compose.yaml` file, default traefik will use port 80. 
+2. Review the `docker-compose.yaml` or `docker-compose-traefik.yaml` file, default traefik will use port 80. 
 
 3. To deploy the Open WebUI service and the `pipeline`service:
 
 ```bash
 docker compose up -d
+```
+
+For traefik deplyoment:
+```bash
+docker compose -f docker-compose-traefik.yaml up -d
 ```
 
 Once completed, you can access the web service on `localhost/chat`
