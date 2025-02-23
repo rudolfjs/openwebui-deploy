@@ -1,13 +1,13 @@
 services:
   openwebui:
-    image: ghcr.io/open-webui/open-webui:git-3f3a5bb
+    image: ghcr.io/open-webui/open-webui:git-50dec12
     ports:
       - "3000:8080"
     volumes:
       - open-webui:/app/backend/data
     container_name: open-webui
   pipelines:
-    image: ghcr.io/open-webui/pipelines:git-ab9012c
+    image: ghcr.io/open-webui/pipelines:git-dc18bdd
     ports:
       - "9099:9099"
     volumes:
