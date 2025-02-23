@@ -1,0 +1,3 @@
+kind: Changed
+body: 'Added extra_hosts: "host.docker.internal:host-gateway" to openwebui service'
+time: 2025-02-24T06:58:36.1410393+10:00

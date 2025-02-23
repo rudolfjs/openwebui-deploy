@@ -6,6 +6,8 @@ services:
     volumes:
       - open-webui:/app/backend/data
     container_name: open-webui
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   pipelines:
     image: ghcr.io/open-webui/pipelines:git-dc18bdd
     ports:
